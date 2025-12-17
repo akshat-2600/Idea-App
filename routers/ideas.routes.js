@@ -2,7 +2,7 @@ const express = require("express");
 const route = express.Router();
 const idea_controller = require("../controllers/ideas.controller");
 const idea_mw =require("../middlewares/ideas.mw")
-
+const auth_mw = require("../middlewares/auth.mw");
 /**
  * Start define the routes
  */
@@ -12,7 +12,7 @@ const idea_mw =require("../middlewares/ideas.mw")
 /**
  * Route for fetch all ideas - 127.0.0.1:7070/ideas_app/v1/ideas
  */
-route.get("/ideas", idea_controller.getAllIdeas);
+route.get("/ideas", [auth_mw.verifyToken], idea_controller.getAllIdeas);
 
 /**
  * Route for fetching idea based on id
